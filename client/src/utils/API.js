@@ -1,27 +1,30 @@
 import axios from "axios";
 
-const BASEURL = "https://www.omdbapi.com/?t=";
-const APIKEY = "&apikey=trilogy";
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+const APIKEY = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 
 export default {
-  // Gets all Articles
+  // Gets all saved Articles from MongoDB
   getArticles: function() {
     return axios.get("/api/articles");
   },
-  // Gets the Article with the given id
+   // Saves an Article to the database
+   saveArticle: function(articleData) {
+    return axios.post("/api/articles", articleData);
+  },
+  // Gets the Article from the database with the given id
   getArticle: function(id) {
     return axios.get("/api/articles/" + id);
   },
-  // Deletes the Article with the given id
+  // Deletes the Article from the database with the given id
   deleteArticle: function(id) {
     return axios.delete("/api/articles/" + id);
   },
-  // Saves a Article to the database
-  saveArticle: function(articleData) {
-    return axios.post("/api/articles", articleData);
-  },
-
+  //Searches the NYT API for articles
   search: function(query) {
     return axios.get(BASEURL + query + APIKEY);
   }
 };
+
+//`*` (get) - will load your single HTML page (with ReactJS)
+// in `client/build/index.html`. Make sure you put this after all other GET routes

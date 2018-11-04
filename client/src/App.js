@@ -1,11 +1,11 @@
 import React from "react";
-import Articles from "./pages/Articles";
+import Home from "./pages/Home";
 import Nav from "./components/Nav";
 
 const App = () => (
   <div>
     <Nav />
-    <Articles />
+    <Home />
   </div>
 );
 
