@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Detail from "../../components/Detail";
 import API from "../../utils/API";
 import Card from "../../components/Card";
 import SearchForm from "../../components/SearchForm";
 import { Col, Row, Container } from "../../components/Grid";
+import { List, ListItem} from "../../components/List";
+import Jumbotron from "../../components/Jumbotron";
 
 class Home extends Component {
   state = {
@@ -11,10 +12,10 @@ class Home extends Component {
     search: ""
   };
 
-  // When this component mounts, search for the movie "The Matrix"
-  componentDidMount() {
-    this.searchArticles();
-  }
+  // // When this component mounts, search 
+  // componentDidMount() {s
+  //   this.searchArticles();
+  // }
 
   searchArticles = query => {
     API.search(query)
@@ -30,7 +31,7 @@ class Home extends Component {
     });
   };
 
-  // When the form is submitted, search the OMDB API for the value of `this.state.search`
+  // When the form is submitted, search the NYT API for the value of `this.state.search`
   handleFormSubmit = event => {
     event.preventDefault();
     this.searchArticles(this.state.search);
@@ -41,12 +42,12 @@ class Home extends Component {
       <Container>
         <Jumbotron>
           <h1>
-            <i className="fa fa-newspaper-o"></i>New York Times Article Scrubber
+            <i className="fa fa-newspaper-o"></i>    New York Times Article Scrubber
           </h1>
             <h3>Search for and annotate articles of interest!</h3>
         </Jumbotron>
         <Row>
-           <Col size="md-8">
+           <Col size="md-12">
             <Card heading="Search">
               <SearchForm
                 value={this.state.search}
@@ -58,25 +59,31 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-        <Col size="md-8">
-            <Card
-              heading={this.state.articles.headline || "Search for Articles to Begin"}
-            >
-              {this.state.articles.headline ? (
-                <Detail
-                  title={this.state.articles.headline}
-                  author={this.state.articles.byline}
-                  date={this.state.articles.pub_date}
-                  url={this.state.articles.web_url}
-                />
-              ) : (
-                <h3>No Articles to Display</h3>
-                <p>Try searching for some!</p>
-              )}
-            </Card>
-          </Col>
+        <Col size="md-12"></Col>
         </Row>
-      </Container>
+        <Row>
+          <Card>
+            <Col size="md-12">
+              {!this.state.articles.length ? (
+                <h1 className="text-center">No Articles to Display</h1>
+              ) : (
+                <List>
+                  {this.state.articles.map(article => {
+                    return (
+                      <ListItem
+                      title={this.state.article.headline}
+                      author={this.state.article.byline}
+                      date={this.state.article.pub_date}
+                      url={this.state.article.web_url}
+                      />
+                    );
+                  })}
+                </List>
+              )}
+            </Col>
+            </Card>
+          </Row>
+        </Container>
     );
   }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
-const APIKEY = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
+const APIKEY = "4c46532eff9c445bb8d27d0474daf841";
 
 export default {
   // Gets all saved Articles from MongoDB

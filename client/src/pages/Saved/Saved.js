@@ -42,7 +42,6 @@ class Saved extends Component {
           <h1>
             <i className="fa fa-newspaper-o"></i>Saved Articles
           </h1>
-            <h3>Search for and annotate articles of interest!</h3>
         </Jumbotron>
         <Row>
         <Col size="md-8">

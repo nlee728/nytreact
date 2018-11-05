@@ -1,9 +1,9 @@
 import React from "react";
 
-const Nav = () => (
+const Nav = props => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
     <h1 className="navbar-brand">
-    <i className="fa fa-newspaper-o"></i>NYT Scrubber
+    <i className="fa fa-newspaper-o"></i   >NYT Scrubber
     </h1>
     <ul className="nav nav-tabs">
     <li className="nav-item">
