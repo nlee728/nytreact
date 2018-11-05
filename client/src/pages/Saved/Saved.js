@@ -3,6 +3,7 @@ import Detail from "../../components/Detail";
 import API from "../../utils/API";
 import Card from "../../components/Card";
 import { Col, Row, Container } from "../../components/Grid";
+import Jumbotron from "../../components/Jumbotron";
 
 class Saved extends Component {
   state = {
@@ -22,8 +23,7 @@ class Saved extends Component {
   };
 
   handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });
@@ -40,7 +40,7 @@ class Saved extends Component {
       <Container>
         <Jumbotron>
           <h1>
-            <i className="fa fa-newspaper-o"></i>Saved Articles
+            <i className="fa fa-newspaper-o"></i>    Saved Articles
           </h1>
         </Jumbotron>
         <Row>
@@ -57,7 +57,6 @@ class Saved extends Component {
                 />
               ) : (
                 <h3>No Articles to Display</h3>
-                <p>Try searching for some!</p>
               )}
             </Card>
           </Col>

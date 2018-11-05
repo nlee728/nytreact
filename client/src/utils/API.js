@@ -8,8 +8,8 @@ export default {
   getArticles: function() {
     return axios.get("/api/articles");
   },
-   // Saves an Article to the database
-   saveArticle: function(articleData) {
+  // Saves an Article to the database
+  saveArticle: function(articleData) {
     return axios.post("/api/articles", articleData);
   },
   // Gets the Article from the database with the given id
@@ -22,7 +22,7 @@ export default {
   },
   //Searches the NYT API for articles
   search: function(query) {
-    return axios.get(BASEURL + query + APIKEY);
+    return axios.get(BASEURL + query + "&api-key=" + APIKEY);
   }
 };
 

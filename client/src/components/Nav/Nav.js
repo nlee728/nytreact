@@ -8,7 +8,7 @@ const Nav = props => (
     <ul className="nav nav-tabs">
     <li className="nav-item">
       <a
-        onClick={() => props.handlePageChange("Home")}
+        href="/"
         className={
           props.currentPage === "Home" ? "nav-link active" : "nav-link"
         }
@@ -18,7 +18,7 @@ const Nav = props => (
     </li>
     <li className="nav-item">
       <a
-        onClick={() => props.handlePageChange("Saved")}
+        href="/saved"
         className={
           props.currentPage === "Saved" ? "nav-link active" : "nav-link"
         }

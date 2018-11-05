@@ -12,20 +12,25 @@ class Home extends Component {
     search: ""
   };
 
-  // // When this component mounts, search 
-  // componentDidMount() {s
-  //   this.searchArticles();
-  // }
+  // When this component mounts, search 
+  componentDidMount() {
+    this.searchArticles("local");
+  }
 
   searchArticles = query => {
     API.search(query)
-      .then(res => this.setState({ articles: res.data }))
+      .then(res => this.setState({ articles: res.data.response.docs }))
+      .catch(err => console.log(err));
+  };
+
+  saveArticle = articleData => {
+       API.saveArticle(articleData)
+      .then(res => console.log("Article saved"))
       .catch(err => console.log(err));
   };
 
   handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });
@@ -38,6 +43,8 @@ class Home extends Component {
   };
 
   render() {
+    console.log("Articles");
+    console.log(this.state.articles);
     return (
       <Container>
         <Jumbotron>
@@ -59,10 +66,13 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-        <Col size="md-12"></Col>
+        
         </Row>
         <Row>
-          <Card>
+        
+        <Col size="md-12">
+          <Card 
+          heading="Search Results">
             <Col size="md-12">
               {!this.state.articles.length ? (
                 <h1 className="text-center">No Articles to Display</h1>
@@ -71,10 +81,11 @@ class Home extends Component {
                   {this.state.articles.map(article => {
                     return (
                       <ListItem
-                      title={this.state.article.headline}
-                      author={this.state.article.byline}
-                      date={this.state.article.pub_date}
-                      url={this.state.article.web_url}
+                      key={article._id}
+                      title={article.headline.main}
+                      summary={article.snippet}
+                      date={article.pub_date}
+                      url={article.web_url}
                       />
                     );
                   })}
@@ -82,6 +93,7 @@ class Home extends Component {
               )}
             </Col>
             </Card>
+            </Col>
           </Row>
         </Container>
     );
