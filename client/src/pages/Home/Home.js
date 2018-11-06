@@ -71,7 +71,7 @@ deleteArticle = (id) => {
           <h1>
             <i className="fa fa-newspaper-o"></i>    New York Times Article Scrubber
           </h1>
-            <h3>Search for and annotate articles of interest!</h3>
+            <h3>Search for and save articles of interest!</h3>
         </Jumbotron>
         <Row>
            <Col size="md-12">
