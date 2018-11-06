@@ -27,15 +27,22 @@ class Home extends Component {
       .catch(err => console.log(err));
   };
 
-  saveArticle = () => {
+  saveArticle = (article) => {
+    console.log(article);
     API.saveArticle({
-      title: this.article.headline.main,
-      summary: this.article.snippet,
-      date: this.article.pub_date,
-      url: this.article.web_url
+      title: article.headline.main,
+      summary: article.snippet,
+      date: article.pub_date,
+      url: article.web_url
     })
     .then(res => this.getArticles())
     .catch(err => console.log(err));
+};
+
+deleteArticle = (id) => {
+  API.deleteArticle(id)
+  .then(res => this.getArticles())
+  .catch(err => console.log(err));
 };
 
   getArticles = () => {
@@ -58,8 +65,6 @@ class Home extends Component {
   };
 
   render() {
-    console.log("Articles");
-    console.log(this.state.articles);
     return (
       <Container>
         <Jumbotron>
@@ -103,7 +108,7 @@ class Home extends Component {
                       date={article.pub_date}
                       url={article.web_url}
                       />
-                      <SaveBtn onClick={() => this.saveArticle()} />
+                      <SaveBtn onClick={() => this.saveArticle(article)} />
                       </Container>
                     );
                   })}
@@ -124,17 +129,17 @@ class Home extends Component {
                 <h1 className="text-center">No Articles to Display</h1>
               ) : (
                 <List>
-                  {this.state.saved.map(article => {
+                  {this.state.saved.map(savedArticle => {
                     return (
                       <Container>
                       <ListItem
-                      key={article._id}
-                      title={article.headline.main}
-                      summary={article.snippet}
-                      date={article.pub_date}
-                      url={article.web_url}
+                      key={savedArticle._id}
+                      title={savedArticle.title}
+                      summary={savedArticle.summary}
+                      date={savedArticle.date}
+                      url={savedArticle.url}
                       />
-                      <DeleteBtn onClick={() => this.deleteArticle()} />
+                      <DeleteBtn onClick={() => this.deleteArticle(savedArticle._id)} />
                       </Container>
                     );
                   })}
