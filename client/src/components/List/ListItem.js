@@ -13,9 +13,6 @@ export const ListItem = props => (
           <a rel="noreferrer noopener" target="_blank" href={props.url}>
             Go to Article!
           </a>
-          <span onClick={props.saveArticle} className="btn">
-              <i className="fa fa-heart"> Save</i>
-            </span>
         </Col>
       </Row>
     </Container>

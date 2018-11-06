@@ -5,16 +5,20 @@ import SearchForm from "../../components/SearchForm";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem} from "../../components/List";
 import Jumbotron from "../../components/Jumbotron";
+import SaveBtn from "../../components/SaveBtn";
+import DeleteBtn from "../../components/DeleteBtn";
 
 class Home extends Component {
   state = {
     articles: {},
+    saved: {},
     search: ""
   };
 
   // When this component mounts, search 
   componentDidMount() {
     this.searchArticles("local");
+    this.getArticles();
   }
 
   searchArticles = query => {
@@ -23,11 +27,22 @@ class Home extends Component {
       .catch(err => console.log(err));
   };
 
-  saveArticle = articleData => {
-       API.saveArticle(articleData)
-      .then(res => console.log("Article saved"))
+  saveArticle = () => {
+    API.saveArticle({
+      title: this.article.headline.main,
+      summary: this.article.snippet,
+      date: this.article.pub_date,
+      url: this.article.web_url
+    })
+    .then(res => this.getArticles())
+    .catch(err => console.log(err));
+};
+
+  getArticles = () => {
+    API.getArticles()
+    .then(res => this.setState({ saved: res.data }))
       .catch(err => console.log(err));
-  };
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -80,6 +95,7 @@ class Home extends Component {
                 <List>
                   {this.state.articles.map(article => {
                     return (
+                      <Container>
                       <ListItem
                       key={article._id}
                       title={article.headline.main}
@@ -87,6 +103,8 @@ class Home extends Component {
                       date={article.pub_date}
                       url={article.web_url}
                       />
+                      <SaveBtn onClick={() => this.saveArticle()} />
+                      </Container>
                     );
                   })}
                 </List>
@@ -95,6 +113,38 @@ class Home extends Component {
             </Card>
             </Col>
           </Row>
+
+          <Row>
+        
+        <Col size="md-12">
+          <Card 
+          heading="Saved Articles">
+            <Col size="md-12">
+              {!this.state.saved.length ? (
+                <h1 className="text-center">No Articles to Display</h1>
+              ) : (
+                <List>
+                  {this.state.saved.map(article => {
+                    return (
+                      <Container>
+                      <ListItem
+                      key={article._id}
+                      title={article.headline.main}
+                      summary={article.snippet}
+                      date={article.pub_date}
+                      url={article.web_url}
+                      />
+                      <DeleteBtn onClick={() => this.deleteArticle()} />
+                      </Container>
+                    );
+                  })}
+                </List>
+              )}
+            </Col>
+            </Card>
+            </Col>
+          </Row>
+
         </Container>
     );
   }
